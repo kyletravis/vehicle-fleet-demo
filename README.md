@@ -19,6 +19,13 @@ screen shots
 ![eureka](https://raw.githubusercontent.com/myminseok/vehicle-fleet-demo/master/eureka.png)
 
 
+### Deploy micropcf
+
+  wget https://github.com/pivotal-cf/micropcf/releases/download/v0.6.0/micropcf-v0.6.0.zip
+  unzip micropcf-v0.6.0.zip
+  cd micropcf-v0.6.0
+  vagrant up
+
 ## deploy to micropcf
 
 ### prepare micropcf
@@ -50,7 +57,7 @@ you need to increase memory to 8192MB by editing Vagrantfile.
 
 ### open outbound connectivity from cloudfoundry space to external service
 
-create a file 
+create a file
 
     vi securityfile
 
@@ -257,4 +264,3 @@ Enjoy!
 **check app registration to eureka**
 
         http://fleet-eureka-server.local.micropcf.io/
- 
