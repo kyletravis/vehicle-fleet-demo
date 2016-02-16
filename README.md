@@ -21,10 +21,10 @@ screen shots
 
 ### Deploy micropcf
 
-  wget https://github.com/pivotal-cf/micropcf/releases/download/v0.6.0/micropcf-v0.6.0.zip
-  unzip micropcf-v0.6.0.zip
-  cd micropcf-v0.6.0
-  vagrant up
+    wget https://github.com/pivotal-cf/micropcf/releases/download/v0.6.0/micropcf-v0.6.0.zip
+    unzip micropcf-v0.6.0.zip
+    cd micropcf-v0.6.0
+    vagrant up
 
 ## deploy to micropcf
 
