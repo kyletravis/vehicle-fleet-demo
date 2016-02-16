@@ -58,48 +58,23 @@ This assumes a docker machine has already been created named "docker". If you ha
 
     docker-compose up -d
 
-### open outbound connectivity from Cloud Foundry space to external services
+### Open outbound connectivity from Cloud Foundry space to external services
 
     ./create_security_group.sh
 
 ### Create a DB in MySQL
 
-in mysql, set user and give privileges
+    echo "create database fleet" | docker run --rm -it --tty=false --net=host mariadb mysql -h `docker-machine ip docker` -u root -pmysql
 
-    use mysql;
-    grant all privileges on *.* to root@'%' with grant option;
-    set password for root@'%' = password('changeme');
+If you created your own docker machine named something other than 'docker' then you need to adjust that argument in the command above
 
-    create database fleet;
+### Create User-Provided Services within micropcf
 
-**mysql-db**
+    DOCKER_IP=`docker-machine ip docker`
+    sed -i -e "s/__IP__/$DOCKER_IP/" cups.sh
+    ./cups.sh
 
-replace MYSQL_IP to yours
-
-    $ cf create-user-provided-service mysql-db -p '{"uri":"mysql://root:changeme@MYSQL_IP:3306/fleet"}'
-
-**mongodb**
-
-replace MONGO_DB_IP to yours
-
-    $ cf cups mongodb -p '{"uri":"mongodb://MONGO_DB_IP:27017/locations"}'
-
-**rabbitmq**
-
-replace RABBITMQ_IP to yours
-don't forget to the postfix '%2f'. see https://www.rabbitmq.com/uri-spec.html
-
-    $ cf cups rabbitmq -p '{"uri":"amqp://guest:guest@RABBITMQ_IP:5672/%2f"}'
-
-**config server**
-
-    $ cf cups configserver -p  '{"uri":"http://configserver.local.micropcf.io/"}'
-
-**eureka**
-
-    $ cf cups eureka -p  '{"uri":"http://fleet-eureka-server.local.micropcf.io/"}'
-
-## deploy fleet services
+## Deploy Fleet Demo microservices
 
 ### Check out sources
 
