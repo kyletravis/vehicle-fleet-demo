@@ -29,6 +29,7 @@ MBP with 16GB RAM preferred
 1. Vagrant https://www.vagrantup.com/downloads.html
 1. VirtualBox https://www.virtualbox.org/wiki/Downloads
 1. Docker https://www.docker.com/
+1. Java 8 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
 ### Clone this repository
 
@@ -76,73 +77,32 @@ If you created your own docker machine named something other than 'docker' then 
 
 ## Deploy Fleet Demo microservices
 
-### Check out sources
-
-several changes have been made from original for micropcf such as manifests.yml, application.yml, pom.xml,bootstrap.yml..
-spring jpa setting for fleet-location-service in application.yml.
-
-    $ git clone https://github.com/myminseok/vehicle-fleet-demo.git
-
-
 ### Compile, test and build all jars
-
-you need java 8
 
 	$ ./mvnw clean install
 
+### Deploy
 
-### deploying
+    ./deploy.sh
 
-visit each module directory and run 'cf push'. (timeout 180 sec in manifests.yml)
-make sure there is no error by monitoring 'cf logs'
-
-	$ cd platform/configserver
-	$ cf push
+Config Server:
 	http://configserver.local.micropcf.io/admin/health
 
-	$ cd platform/eureka
-	$ cf push
-	$ cf logs fleet-eureka-server
+Eureka:
 	http://fleet-eureka-server.local.micropcf.io/
 
-	$ cd platform/hystrix-dashboard
-	$ cf push
+Hystrix:
 	http://fleet-hystrix-dashboard.local.micropcf.io
 
-	$ cd fleet-location-simulator
-	$ cf push
+Control Panel:
 	http://fleet-location-simulator.local.micropcf.io
 
-	$ cd fleet-location-ingest
-	$ cf push
-
-    $ cd fleet-location-updater
-    $ cf push
-
-	$ cd fleet-location-service
-	$ cf push
-
-	$ cd service-location-service
-	$ cf push
-
-	$ cd dashboard
-	$ cf push
-
+Dashboard:
+  http://fleet-dashboard.local.micropcf.io
 
 #### Start Demo by Script
 
-If you go to the Eureka Dashboard, you should see all services registered and running:
-
-http://fleet-eureka-server.local.micropcf.io/
-
-    * DASHBOARD
-    * FLEET-LOCATION-INGEST
-    * FLEET-LOCATION-SERVICE
-    * FLEET-LOCATION-SIMULATOR
-    * FLEET-LOCATION-UPDATER
-    * SERVICE-LOCATION-SERVICE
-
-Please ensure all services started successfully. Next, start the simulation using the `service-location-simulator` application,
+Please ensure all services have started successfully by checking Eureka and monitoring the 'cf logs' command. Next, start the simulation using the `service-location-simulator` application,
 
     $ cd scripts
     $ load.sh
@@ -150,21 +110,13 @@ Please ensure all services started successfully. Next, start the simulation usin
     Starting simulator...
     **** Vehicle Fleet Demo is running on http://fleet-dashboard.local.micropcf.io
 
-
-
-to see rabbitmq status
-
-http://rabbitmq_ip:15672/
-
-to see dashboard
-
-http://fleet-dashboard.local.micropcf.io
-
-
 Enjoy!
 
+# Trouble shooting
 
-## Trouble shooting
+**to see the rabbitmq status
+
+  http://rabbitmq_ip:15672/
 
 **this demo requires internet connection**
 
