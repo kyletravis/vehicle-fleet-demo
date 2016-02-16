@@ -30,6 +30,7 @@ MBP with 16GB RAM preferred
 1. VirtualBox https://www.virtualbox.org/wiki/Downloads
 1. Docker https://www.docker.com/
 1. Java 8 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+1. Cloud Foundry CLI https://github.com/cloudfoundry/cli/releases
 
 ### Clone this repository
 
@@ -100,7 +101,7 @@ Control Panel:
 Dashboard:
   http://fleet-dashboard.local.micropcf.io
 
-#### Start Demo by Script
+### Start Demo by Script
 
 Please ensure all services have started successfully by checking Eureka and monitoring the 'cf logs' command. Next, start the simulation using the `service-location-simulator` application,
 
@@ -111,6 +112,13 @@ Please ensure all services have started successfully by checking Eureka and moni
     **** Vehicle Fleet Demo is running on http://fleet-dashboard.local.micropcf.io
 
 Enjoy!
+
+### Clean Up
+
+    cf logout
+    vagrant destroy
+    docker-compose down
+    docker-machine stop docker
 
 # Trouble shooting
 
