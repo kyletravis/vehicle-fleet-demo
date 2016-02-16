@@ -18,31 +18,33 @@ screen shots
 ![rabbitmq](https://raw.githubusercontent.com/myminseok/vehicle-fleet-demo/master/rabbitmq.png)
 ![eureka](https://raw.githubusercontent.com/myminseok/vehicle-fleet-demo/master/eureka.png)
 
+## Updated Instructions
 
-### Deploy micropcf
+### Prerequisites
 
-    wget https://github.com/pivotal-cf/micropcf/releases/download/v0.6.0/micropcf-v0.6.0.zip
-    unzip micropcf-v0.6.0.zip
-    cd micropcf-v0.6.0
+MBP with 16GB RAM preferred
+
+1. vagrant https://www.vagrantup.com/downloads.html
+1. virtualbox https://www.virtualbox.org/wiki/Downloads
+1. docker https://www.docker.com/
+
+### Clone this repository
+
+    git clone https://github.com/kyletravis/vehicle-fleet-demo.git
+
+### Deploy micropcf (v0.6.0)
+
     vagrant up
 
-## deploy to micropcf
+Additional information can be found at https://github.com/pivotal-cf/micropcf
+
+## Connect to micropcf
+
+
 
 ### prepare micropcf
 
-download https://github.com/pivotal-cf/micropcf and follow instruction.
 
-you need to increase memory to 8192MB by editing Vagrantfile.
-
-    else
-        cpus ||= 2
-        max_memory ||=  8192
-      end
-
-      memory = [[2048, max_memory / 2].max, 8192].min
-
-      {memory: memory / 4 * 4, cpus: cpus, max_memory: max_memory}
-    end
 
 
 ### prepare external service
