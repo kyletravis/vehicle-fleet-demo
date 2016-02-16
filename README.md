@@ -10,9 +10,11 @@ need a service are shown in orange or red depending on the urgency of
 the repairs. Service stations can be shown on the map by selecting a
 menu item.
 
-this is refactored version for micropcf.
-the original sources are  here(https://github.com/springone2gx2015/vehicle-fleet-demo)
-screen shots
+This version has been refactored for micropcf with updated instructions
+
+The original sources are located here(https://github.com/springone2gx2015/vehicle-fleet-demo)
+
+Screenshots
 
 ![dashboard](https://raw.githubusercontent.com/myminseok/vehicle-fleet-demo/master/dashboard.png)
 ![rabbitmq](https://raw.githubusercontent.com/myminseok/vehicle-fleet-demo/master/rabbitmq.png)
@@ -24,9 +26,9 @@ screen shots
 
 MBP with 16GB RAM preferred
 
-1. vagrant https://www.vagrantup.com/downloads.html
-1. virtualbox https://www.virtualbox.org/wiki/Downloads
-1. docker https://www.docker.com/
+1. Vagrant https://www.vagrantup.com/downloads.html
+1. VirtualBox https://www.virtualbox.org/wiki/Downloads
+1. Docker https://www.docker.com/
 
 ### Clone this repository
 
@@ -36,41 +38,31 @@ MBP with 16GB RAM preferred
 
     vagrant up
 
-Additional information can be found at https://github.com/pivotal-cf/micropcf
+This process may take 10+ minutes as it spins up the various components of Cloud Foundry. Additional information can be found at https://github.com/pivotal-cf/micropcf
 
-## Connect to micropcf
+### Connect to micropcf
 
+    cf api api.local.micropcf.io --skip-ssl-validation
+    cf login
 
+Use 'admin' for Email and 'admin' for Password (minus quotes)
 
-### prepare micropcf
+### Start docker machine
 
+    docker-machine start docker
+    eval $(docker-machine env docker)
 
+This assumes a docker machine has already been created named "docker". If you have not yet created a docker machine, check out this link for instructions on creating one: https://docs.docker.com/machine/get-started/
 
+### Start external services required via docker
 
-### prepare external service
+    docker-compose up -d
 
-* [MongoDB][]
-* [RabbitMQ][]
-* MYSQL
+### open outbound connectivity from Cloud Foundry space to external services
 
-    vi my.conf
-    bind-address = IP_ADDR_MYSQL_SERVER
+    ./create_security_group.sh
 
-
-### open outbound connectivity from cloudfoundry space to external service
-
-create a file
-
-    vi securityfile
-
-    [{"destination": "0.0.0.0-255.255.255.255","protocol": "all"}]
-
-    cf create-security-group open_all securityfile
-    cf bind-security-group open_all micropcf-org micropcf-space
-    cf bind-staging-security-group open_all
-    cf bind-running-security-group  open_all
-
-### create user provided service
+### Create a DB in MySQL
 
 in mysql, set user and give privileges
 
