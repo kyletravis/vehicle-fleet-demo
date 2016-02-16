@@ -114,7 +114,7 @@ Enjoy!
 
 # Trouble shooting
 
-**to see the rabbitmq status
+**to see the rabbitmq status**
 
   http://rabbitmq_ip:15672/
 
